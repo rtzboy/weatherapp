@@ -1,5 +1,10 @@
 export interface City {
-	[key: string]: any;
+	country: string;
+	lat: number;
+	local_names?: object;
+	lon: number;
+	name: string;
+	state: string;
 }
 
 export interface ResultCities {
@@ -17,6 +22,7 @@ export const searchCity = async (city: string): Promise<ResultCities> => {
 		);
 		if (res.ok) {
 			const result = await res.json();
+			console.log(result);
 			return { error: 'false', success: true, result };
 		} else {
 			return { error: 'true', success: false, result: undefined };

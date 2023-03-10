@@ -1,4 +1,4 @@
-import { InputInterface } from '../../interfaces/InputInterface';
+import { InputInterface } from '../../interfaces/FormInterface';
 
 const Input = ({ className, ...props }: InputInterface) => {
 	return (
