@@ -1,10 +1,10 @@
 import { getURLFlag } from '../constants/URLFlajs';
-import { City } from '../lib/api/api';
+import { City, weatherWeek } from '../lib/api/api';
 
 const SearchRow = ({ country, lat, lon, name, state, local_names }: City) => {
 	return (
 		<li
-			onClick={evt => window.alert(`${lat} ; ${lon}`)}
+			onClick={() => weatherWeek(lat.toString(), lon.toString())}
 			className='gap-2 py-2 flex px-4 cursor-pointer hover:bg-gray-500/30 transition-all'
 		>
 			<div className='w-[50%] flex items-center'>

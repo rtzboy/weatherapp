@@ -1,10 +1,10 @@
 import { useReducer } from 'react';
 import { SearchActions, SearchState } from '../interfaces/SearchBoxInterface';
 import {
-	search_error,
-	search_success,
-	search_term,
-	start_search
+	searchError,
+	searchSuccess,
+	searchTerm,
+	startSearch
 } from '../lib/actions/searchBoxActions';
 import { City, searchCity } from '../lib/api/api';
 import { INITIAL_STATE, searchDataReducer } from '../lib/reducers/searchBoxReducer';
@@ -24,7 +24,7 @@ const SearchBox = () => {
 			<div className='flex gap-4 max-w-[350px]'>
 				<div className='relative'>
 					<Input
-						onChange={evt => dispatchSearchBox(search_term(evt.target.value))}
+						onChange={evt => dispatchSearchBox(searchTerm(evt.target.value))}
 						type='text'
 						value={searchBox.searchTerm}
 						placeholder='Search city...'
@@ -65,13 +65,13 @@ const getSearchData = async (
 	dispatchSearchBox: React.Dispatch<SearchActions>,
 	searchTerm: string
 ) => {
-	dispatchSearchBox(start_search());
+	dispatchSearchBox(startSearch());
 	const { error, success, result } = await searchCity(searchTerm);
 
 	if (success && Array.isArray(result)) {
-		dispatchSearchBox(search_success(result));
+		dispatchSearchBox(searchSuccess(result));
 	} else {
-		dispatchSearchBox(search_error(error));
+		dispatchSearchBox(searchError(error));
 	}
 };
 

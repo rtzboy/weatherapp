@@ -6,7 +6,6 @@ interface IconButtonProps extends ButtonInterface {
 }
 
 const IconButton = ({ icon: Icon, ...props }: IconButtonProps) => {
-	console.log(props);
 	return <button {...props}>{Icon && <Icon className='h-5' />}</button>;
 };
 
