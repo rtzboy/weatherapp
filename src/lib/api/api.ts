@@ -31,18 +31,19 @@ interface CityWeek {
 	timezone: number;
 }
 
-interface ResultWeather {
+export interface ResultsCity {
+	city: CityWeek;
+	cnt: number;
+	cod: string;
+	message: number;
+	list: WeatherData[];
+}
+
+export interface ResultWeather {
 	error: string;
 	success: boolean;
-	results:
-		| {
-				city: CityWeek;
-				cnt: number;
-				cod: string;
-				message: number;
-				list: WeatherData[];
-		  }
-		| undefined;
+	results: ResultsCity | undefined;
+	currWeatherResult: CurrentWeather | undefined;
 }
 
 interface WeatherData {
@@ -69,7 +70,7 @@ interface Main {
 	pressure: number;
 	sea_level: number;
 	temp: number;
-	temp_kf: number;
+	temp_kf?: number;
 	temp_max: number;
 	temp_min: number;
 }
@@ -113,16 +114,62 @@ export const searchCity = async (city: string): Promise<ResultCities> => {
 
 export const weatherWeek = async (lat: string, lon: string): Promise<ResultWeather> => {
 	try {
-		const response = await fetch(
-			`${URL_WEATHER}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${import.meta.env.VITE_API_KEY}`
-		);
-		if (response.ok) {
-			const results = await response.json();
-			return { error: 'false', success: true, results };
+		const [resForecast, resCurrent] = await Promise.all([
+			fetch(
+				`${URL_WEATHER}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${
+					import.meta.env.VITE_API_KEY
+				}`
+			),
+			fetch(
+				`${URL_WEATHER}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${
+					import.meta.env.VITE_API_KEY
+				}`
+			)
+		]);
+
+		if (resForecast.ok) {
+			const resultForecast = await resForecast.json();
+			const resultCurrent = await resCurrent.json();
+			return {
+				error: 'false',
+				success: true,
+				results: resultForecast,
+				currWeatherResult: resultCurrent
+			};
 		} else {
-			return { error: response.statusText, success: false, results: undefined };
+			return {
+				error: resForecast.statusText,
+				success: false,
+				results: undefined,
+				currWeatherResult: undefined
+			};
 		}
 	} catch (error) {
-		return { error: `error: ${error}`, success: false, results: undefined };
+		return {
+			error: `error: ${error}`,
+			success: false,
+			results: undefined,
+			currWeatherResult: undefined
+		};
 	}
 };
+
+export interface CurrentWeather {
+	base: string;
+	clouds: Clouds;
+	cod: number;
+	coord: Coord;
+	dt: number;
+	id: number;
+	main: Main;
+	name: string;
+	sys: {
+		country: string;
+		sunrise: number;
+		sunset: number;
+	};
+	timezone: number;
+	visibility: number;
+	weather: Weather[];
+	wind: Wind;
+}

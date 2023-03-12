@@ -1,4 +1,3 @@
-import { useReducer } from 'react';
 import { SearchActions, SearchState } from '../interfaces/SearchBoxInterface';
 import {
 	searchError,
@@ -7,16 +6,18 @@ import {
 	startSearch
 } from '../lib/actions/searchBoxActions';
 import { City, searchCity } from '../lib/api/api';
-import { INITIAL_STATE, searchDataReducer } from '../lib/reducers/searchBoxReducer';
 import IconButton from './form/IconButton';
 import Input from './form/Input';
 import SearchIcon from './icons/SearchIcon';
 import XMarkIcon from './icons/XMarkIcon';
 import SearchRow from './SearchRow';
 
-const SearchBox = () => {
-	const [searchBox, dispatchSearchBox] = useReducer(searchDataReducer, INITIAL_STATE);
+interface SearchBoxProps {
+	searchBox: SearchState;
+	dispatchSearchBox: React.Dispatch<SearchActions>;
+}
 
+const SearchBox = ({ searchBox, dispatchSearchBox }: SearchBoxProps) => {
 	const printRowData = searchBoxStatus(searchBox);
 
 	return (
