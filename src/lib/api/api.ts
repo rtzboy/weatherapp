@@ -77,6 +77,7 @@ interface Main {
 
 interface Rain {
 	'3h': number;
+	'1h': number;
 }
 
 interface Sys {
@@ -163,6 +164,7 @@ export interface CurrentWeather {
 	id: number;
 	main: Main;
 	name: string;
+	rain?: Rain;
 	sys: {
 		country: string;
 		sunrise: number;
