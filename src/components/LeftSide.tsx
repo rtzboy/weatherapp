@@ -10,9 +10,14 @@ const LeftSide = ({ currWeather }: LeftSideProps) => {
 	if (!currWeather) return <p>Loading...</p>;
 	return (
 		<>
+			<p>timezone: {currWeather.timezone}</p>
 			<div className='my-4 text-center'>{imgWeather(currWeather)}</div>
 			<div className='my-4'>
 				<span className='text-5xl'>{(currWeather.main.temp - 273).toFixed(1)} °C</span>
+			</div>
+			<div className='my-4'>
+				<span>Feels Like </span>
+				<span>{(currWeather.main.feels_like - 273).toFixed(1)} °C</span>
 			</div>
 			<div className='my-4'>
 				<span>{dayOfWeek(currWeather.dt)}, </span>

@@ -8,7 +8,7 @@ const Visibility = ({ value }: VisibilityProps) => {
 	const valueVisibility = visibilityTextValue(value / 1000);
 
 	return (
-		<article className='just flex flex-col gap-2 rounded-2xl bg-white p-4'>
+		<article className='flex flex-col gap-2 rounded-2xl bg-white p-4'>
 			<h2>Visibility</h2>
 			<div className='flex gap-3'>
 				<div>
