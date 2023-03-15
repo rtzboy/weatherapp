@@ -166,6 +166,8 @@ export interface CurrentWeather {
 	name: string;
 	rain?: Rain;
 	sys: {
+		type?: number;
+		id?: number;
 		country: string;
 		sunrise: number;
 		sunset: number;

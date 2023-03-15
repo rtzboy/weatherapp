@@ -9,3 +9,5 @@ export const week: string[] = [
 	'Friday',
 	'Saturday'
 ];
+
+export const directions: string[] = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];

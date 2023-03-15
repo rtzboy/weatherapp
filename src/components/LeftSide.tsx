@@ -28,6 +28,7 @@ const LeftSide = ({ currWeather }: LeftSideProps) => {
 					/>
 				</span>
 				<span>{currWeather.weather[0].description}</span>
+				<span>{currWeather.weather[1]?.description}</span>
 			</div>
 			{rainState(currWeather)}
 			<div className='my-4'>

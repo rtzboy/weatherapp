@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+	.bg-radial {
+		background: radial-gradient(circle, rgb(254, 242, 71) 0%, rgb(253, 199, 99) 60%);
+	}
+}
+
+@layer components {
+	.levelHum {
+		@apply relative flex h-20 w-[30px] rotate-180 transform justify-center rounded-full border border-gray-500;
+	}
+
+	.levelBall {
+		@apply absolute h-4 w-4 -translate-y-1/2 transform rounded-full border bg-red-500 transition-all duration-500;
+	}
+}
