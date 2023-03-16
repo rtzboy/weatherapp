@@ -1,32 +1,68 @@
+import React, { Dispatch } from 'react';
 import { CurrWeatherType } from '../App';
 import { getURLFlag } from '../constants/URLFlajs';
-import { City, weatherWeek } from '../lib/api/api';
+import { getStoreSearchHistory, storeSearchHistory } from '../helpers/localStorage';
+import { weatherWeek } from '../lib/api/api';
 import { useSearchBoxContext } from '../lib/contexts/SearchBoxContext';
 
-const SearchRow = ({ country, lat, lon, name, state, local_names }: City) => {
+export interface SearchRowProps {
+	country: string;
+	lat: number;
+	lon: number;
+	name: string;
+	state: string;
+	local_names?: object;
+	setSearchHistory: Dispatch<React.SetStateAction<any[]>>;
+}
+
+const SearchRow = ({
+	country,
+	lat,
+	lon,
+	name,
+	state,
+	local_names,
+	setSearchHistory
+}: SearchRowProps) => {
 	const { setCurrWeather } = useSearchBoxContext();
+
+	const handleUpdateHistory = () => {
+		const valueHistory = getStoreSearchHistory('searchHistory') || [];
+
+		const isRepetead = valueHistory.some((elm: SearchRowProps) => elm.lat === lat);
+		if (isRepetead) return;
+
+		let newValueHistory = [...valueHistory, { country, lat, lon, name, state }];
+		if (newValueHistory.length > 5)
+			newValueHistory = newValueHistory.slice(1, newValueHistory.length);
+		storeSearchHistory('searchHistory', newValueHistory);
+		setSearchHistory(newValueHistory);
+	};
 
 	return (
 		<li
-			onClick={() => applyLatLon(setCurrWeather, lat, lon)}
-			className='gap-2 py-2 flex px-4 cursor-pointer hover:bg-gray-500/30 transition-all'
+			onClick={() => {
+				applyLatLon(setCurrWeather, lat, lon);
+				handleUpdateHistory();
+			}}
+			className='flex cursor-pointer items-center gap-3 p-3 transition-all hover:bg-gray-500/30'
 		>
-			<div className='w-[50%] flex items-center'>
+			<div>
+				<img src={getURLFlag(country)} alt={name} className='h-3 w-5' />
+			</div>
+			<div className=''>
 				<span>{name}, </span>
 				<span> {country}</span>
 			</div>
-			<div className='flex gap-4 items-center w-[50%]'>
-				<span>
-					<img src={getURLFlag(country)} alt={name} className='w-5 h-3' />
-				</span>
-				<span>{state}</span>
+			<div>
+				<span className='text-sm italic text-slate-700'>{state}</span>
 			</div>
 		</li>
 	);
 };
 
-const applyLatLon = async (
-	setCurrWeather: React.Dispatch<React.SetStateAction<CurrWeatherType>>,
+export const applyLatLon = async (
+	setCurrWeather: Dispatch<React.SetStateAction<CurrWeatherType>>,
 	lat: number,
 	lon: number
 ) => {
