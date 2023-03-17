@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import LeftSide from './components/LeftSide';
 import RightSide from './components/RightSide';
-import SearchBox from './components/SearchBox';
+import SearchBox from './components/search/SearchBox';
 import { CurrentWeather } from './lib/api/api';
 import { SearchBoxContext } from './lib/contexts/SearchBoxContext';
 

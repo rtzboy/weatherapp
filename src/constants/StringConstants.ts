@@ -11,3 +11,5 @@ export const week: string[] = [
 ];
 
 export const directions: string[] = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+
+export const STORAGE_KEY = 'searchHistory';

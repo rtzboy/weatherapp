@@ -1,9 +1,10 @@
 import React, { Dispatch } from 'react';
-import { CurrWeatherType } from '../App';
-import { getURLFlag } from '../constants/URLFlajs';
-import { getStoreSearchHistory, storeSearchHistory } from '../helpers/localStorage';
-import { weatherWeek } from '../lib/api/api';
-import { useSearchBoxContext } from '../lib/contexts/SearchBoxContext';
+import { CurrWeatherType } from '../../App';
+import { STORAGE_KEY } from '../../constants/StringConstants';
+import { getURLFlag } from '../../constants/URLFlajs';
+import { getStoreSearchHistory, storeSearchHistory } from '../../helpers/localStorage';
+import { weatherWeek } from '../../lib/api/api';
+import { useSearchBoxContext } from '../../lib/contexts/SearchBoxContext';
 
 export interface SearchRowProps {
 	country: string;
@@ -27,7 +28,7 @@ const SearchRow = ({
 	const { setCurrWeather } = useSearchBoxContext();
 
 	const handleUpdateHistory = () => {
-		const valueHistory = getStoreSearchHistory('searchHistory') || [];
+		const valueHistory = getStoreSearchHistory(STORAGE_KEY) || [];
 
 		const isRepetead = valueHistory.some((elm: SearchRowProps) => elm.lat === lat);
 		if (isRepetead) return;
@@ -35,7 +36,7 @@ const SearchRow = ({
 		let newValueHistory = [...valueHistory, { country, lat, lon, name, state }];
 		if (newValueHistory.length > 5)
 			newValueHistory = newValueHistory.slice(1, newValueHistory.length);
-		storeSearchHistory('searchHistory', newValueHistory);
+		storeSearchHistory(STORAGE_KEY, newValueHistory);
 		setSearchHistory(newValueHistory);
 	};
 

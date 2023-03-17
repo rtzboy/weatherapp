@@ -1,9 +1,10 @@
 import { Dispatch } from 'react';
-import { getURLFlag } from '../constants/URLFlajs';
-import { getStoreSearchHistory, storeSearchHistory } from '../helpers/localStorage';
-import { useSearchBoxContext } from '../lib/contexts/SearchBoxContext';
-import ClockIcon from './icons/ClockIcon';
-import XMarkIcon from './icons/XMarkIcon';
+import { STORAGE_KEY } from '../../constants/StringConstants';
+import { getURLFlag } from '../../constants/URLFlajs';
+import { getStoreSearchHistory, storeSearchHistory } from '../../helpers/localStorage';
+import { useSearchBoxContext } from '../../lib/contexts/SearchBoxContext';
+import ClockIcon from '../icons/ClockIcon';
+import XMarkIcon from '../icons/XMarkIcon';
 import { applyLatLon, SearchRowProps } from './SearchRow';
 
 const SearchRowHistory = ({ country, lat, lon, name, state, setSearchHistory }: SearchRowProps) => {
@@ -18,7 +19,7 @@ const SearchRowHistory = ({ country, lat, lon, name, state, setSearchHistory }: 
 			<div className='flex items-center gap-3'>
 				<div>
 					<span className='text-slate-600'>
-						<ClockIcon className='h-5' />
+						<ClockIcon className='h-4' />
 					</span>
 				</div>
 				<div>
@@ -27,9 +28,6 @@ const SearchRowHistory = ({ country, lat, lon, name, state, setSearchHistory }: 
 				<div className='text-[15px]'>
 					<span className='text-slate-600'>{name}, </span>
 					<span className='text-slate-600'> {country}</span>
-				</div>
-				<div>
-					<span className='text-sm italic text-slate-600'>{state}</span>
 				</div>
 			</div>
 			<div className='rounded-full p-1 hover:bg-white'>
@@ -48,9 +46,9 @@ const SearchRowHistory = ({ country, lat, lon, name, state, setSearchHistory }: 
 };
 
 const deleteItemStore = (lat: number, setSearchHistory: Dispatch<React.SetStateAction<any[]>>) => {
-	const valueHistory = getStoreSearchHistory('searchHistory') || [];
+	const valueHistory = getStoreSearchHistory(STORAGE_KEY) || [];
 	const filterHistory = valueHistory.filter((item: SearchRowProps) => item.lat !== lat);
-	storeSearchHistory('searchHistory', filterHistory);
+	storeSearchHistory(STORAGE_KEY, filterHistory);
 	setSearchHistory(filterHistory);
 };
 

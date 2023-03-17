@@ -56,13 +56,9 @@ const rainState = (currWeather: CurrWeatherType) => {
 };
 
 const imgWeather = (currWeather: CurrWeatherType) => {
-	if (!currWeather) return <img src={'./public/refresh.svg'} alt='' />;
+	if (!currWeather) return <img src={'./refresh.svg'} alt='' />;
 	return (
-		<img
-			src={`./public/${currWeather.weather[0].icon}.svg`}
-			alt=''
-			className='inline-block h-44 w-44'
-		/>
+		<img src={`/${currWeather.weather[0].icon}.svg`} alt='' className='inline-block h-44 w-44' />
 	);
 };
 
