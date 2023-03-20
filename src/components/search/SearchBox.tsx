@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react';
+import { KeyboardEvent, useReducer, useState } from 'react';
 import { STORAGE_KEY } from '../../constants/StringConstants';
 import { getStoreSearchHistory } from '../../helpers/localStorage';
 import { SearchActions } from '../../interfaces/SearchBoxInterface';
@@ -14,6 +14,7 @@ import { INITIAL_STATE, searchDataReducer } from '../../lib/reducers/searchBoxRe
 import IconButton from '../form/IconButton';
 import Input from '../form/Input';
 import ArrowIcon from '../icons/ArrowIcon';
+import MapIcon from '../icons/MapIcon';
 import SearchIcon from '../icons/SearchIcon';
 import XMarkIcon from '../icons/XMarkIcon';
 import SearchBoxInfo, { SearchRowHistoryProps } from './SearchBoxInfo';
@@ -27,26 +28,33 @@ const SearchBox = () => {
 
 	const checkSearchHistory = () => setIsVisible(true);
 
+	const handleKeyEnter = (event: KeyboardEvent) => {
+		if (event.code === 'Enter') getSearchData(dispatchSearchBox, searchBox.searchTerm);
+	};
+
 	return (
 		<div ref={wrapperRef} className='relative max-w-full' onFocus={checkSearchHistory}>
-			<div className='flex items-center gap-2'>
+			<div className='flex items-center justify-center gap-2'>
 				<div className='relative'>
 					<Input
 						onChange={evt => dispatchSearchBox(searchTerm(evt.target.value))}
+						onKeyUp={handleKeyEnter}
 						type='text'
 						value={searchBox.searchTerm}
 						placeholder='Search for places ...'
-						className='w-full border px-8 outline-none transition-all placeholder:text-slate-500 focus:border-gray-300 focus:bg-slate-100'
+						className='w-full border px-8 tracking-wide outline-none transition-all placeholder:text-sm placeholder:font-light placeholder:italic placeholder:text-slate-500 focus:border-gray-300 focus:bg-slate-100'
 					/>
 					<span className='absolute top-[50%] left-2 -translate-y-[50%] text-gray-500'>
-						<SearchIcon className='h-5' />
+						{searchBox.dataRow ? <MapIcon className='h-5' /> : <SearchIcon className='h-5' />}
 					</span>
-					<IconButton
-						disabled={!searchBox.dataRow}
-						onClick={() => dispatchSearchBox({ type: 'SEARCH_RESET' })}
-						className='absolute top-[50%] right-2 -translate-y-[50%] cursor-pointer rounded-full p-1 text-gray-500 disabled:cursor-auto disabled:opacity-70'
-						icon={XMarkIcon}
-					/>
+					{searchBox.dataRow && (
+						<IconButton
+							disabled={!searchBox.dataRow}
+							onClick={() => dispatchSearchBox({ type: 'SEARCH_RESET' })}
+							className='absolute top-[50%] right-2 -translate-y-[50%] cursor-pointer rounded-full p-1 text-gray-500 disabled:cursor-auto disabled:opacity-70'
+							icon={XMarkIcon}
+						/>
+					)}
 				</div>
 				<IconButton
 					onClick={() => getSearchData(dispatchSearchBox, searchBox.searchTerm)}

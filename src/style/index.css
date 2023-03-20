@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,6 +7,10 @@
 @layer utilities {
 	.bg-radial {
 		background: radial-gradient(circle, rgb(254, 242, 71) 0%, rgb(253, 199, 99) 60%);
+	}
+	.bg-radial-img {
+		/* background: radial-gradient(circle, rgba(254, 242, 71, 0.8) 0%, rgba(255, 255, 255, 0.5) 70%); */
+		background: radial-gradient(circle, rgba(194, 200, 255, 0.8) 0%, rgba(255, 255, 255, 0.5) 70%);
 	}
 }
 

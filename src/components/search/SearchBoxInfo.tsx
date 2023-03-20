@@ -4,6 +4,14 @@ import { City } from '../../lib/api/api';
 import SearchRow from './SearchRow';
 import SearchRowHistory from './SearchRowHistory';
 
+export interface SearchRowHistoryProps {
+	country: string;
+	lat: number;
+	lon: number;
+	name: string;
+	state: string;
+}
+
 interface SearchBoxInfoProps {
 	isVisible: boolean;
 	searchBox: SearchState;
@@ -60,11 +68,4 @@ const searchBoxHistory = (
 	);
 };
 
-export interface SearchRowHistoryProps {
-	country: string;
-	lat: number;
-	lon: number;
-	name: string;
-	state: string;
-}
 export default SearchBoxInfo;
