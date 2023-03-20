@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Forecast from './components/Forecast';
 import LeftSide from './components/LeftSide';
 import RightSide from './components/RightSide';
 import SearchBox from './components/search/SearchBox';
@@ -21,12 +22,15 @@ const App = () => {
 		<main className='p-4'>
 			<h1 className='mb-5 font-montserrat text-3xl font-semibold'>Weather Forecast</h1>
 			<SearchBoxContext.Provider value={{ setCurrWeather }}>
-				<section className=''>
+				<section className='mb-5'>
 					<SearchBox />
 					<LeftSide currWeather={currWeather} />
 				</section>
-				<section className=''>
+				<section className='mb-5'>
 					<RightSide currWeather={currWeather} />
+				</section>
+				<section className='mb-5'>
+					<Forecast />
 				</section>
 			</SearchBoxContext.Provider>
 		</main>

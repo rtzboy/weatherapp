@@ -7,16 +7,16 @@ interface SquareInfoProps {
 
 const SunriseSunset = ({ sunrise, sunset }: SquareInfoProps) => {
 	return (
-		<article className='flex flex-col gap-3 rounded-2xl bg-white p-4'>
-			<h2>Sunrise & Sunset</h2>
+		<article className='flex flex-col gap-3 rounded-2xl bg-white p-4 text-lg shadow-inf'>
+			<h2 className='font-lato tracking-wide'>Sunrise & Sunset</h2>
 			<p className='flex items-center gap-2'>
-				<span className='bg-radial rounded-full p-[3px] text-white'>
+				<span className='bg-radial rounded-full p-[3px] text-white shadow-inf shadow-yellow-400'>
 					<ArrowIcon className='h-5' />
 				</span>
 				<span>{stringDate(sunrise)} AM</span>
 			</p>
 			<p className='flex items-center gap-2'>
-				<span className='bg-radial rotate-180 rounded-full p-[3px] text-white'>
+				<span className='bg-radial rotate-180 rounded-full p-[3px] text-white shadow-inf shadow-yellow-400'>
 					<ArrowIcon className='h-5' />
 				</span>
 				<span>{stringDate(sunset)} PM</span>

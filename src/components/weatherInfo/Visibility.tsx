@@ -8,18 +8,16 @@ const Visibility = ({ value }: VisibilityProps) => {
 	const valueVisibility = visibilityTextValue(value / 1000);
 
 	return (
-		<article className='flex flex-col gap-2 rounded-2xl bg-white p-4'>
-			<h2>Visibility</h2>
-			<div className='flex gap-3'>
-				<div>
-					<p>
-						<span className='text-3xl'>{(value / 1000).toFixed(2)}</span>
-						<span> Km</span>
-					</p>
-					<p className='text-sm text-gray-600'>{valueVisibility}</p>
-				</div>
-				<div className='flex items-center'>
-					<span>
+		<article className='flex flex-col gap-2 rounded-2xl bg-white p-4 px-5 text-lg shadow-inf'>
+			<h2 className='font-lato tracking-wide'>Visibility</h2>
+			<div className='flex flex-col gap-3'>
+				<p>
+					<span className='text-3xl'>{(value / 1000).toFixed(2)}</span>
+					<span> Km</span>
+				</p>
+				<div className='flex items-center gap-2'>
+					<p className='text-base text-gray-600'>{valueVisibility}</p>
+					<span className='text-slate-800'>
 						<EyeIcon className='h-6' />
 					</span>
 				</div>

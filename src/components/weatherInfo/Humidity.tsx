@@ -5,12 +5,15 @@ interface HumidityProps {
 const Humidity = ({ humidity }: HumidityProps) => {
 	const properties = getStyleAndValue(humidity);
 	return (
-		<article className='just flex flex-col gap-2 rounded-2xl bg-white p-4'>
-			<h2>Humidity</h2>
+		<article className='flex flex-col gap-2 rounded-2xl bg-white p-4 text-lg shadow-inf'>
+			<h2 className='font-lato tracking-wide'>Humidity</h2>
 			<div className='flex items-center gap-4'>
 				<div className='flex flex-col gap-2'>
-					<div className='text-3xl'>{humidity} %</div>
-					<div className='text-sm text-gray-600'>{properties.value}</div>
+					<div className='flex gap-1'>
+						<div className='text-3xl'>{humidity}</div>
+						<div className=''>%</div>
+					</div>
+					<div className='text-base text-gray-600'>{properties.value}</div>
 				</div>
 				<div className='mx-auto'>
 					<div className='levelHum'>

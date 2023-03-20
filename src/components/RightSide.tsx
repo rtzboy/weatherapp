@@ -12,17 +12,20 @@ interface RightSideProps {
 const RightSide = ({ currWeather }: RightSideProps) => {
 	if (currWeather === undefined) return <p>Loading...</p>;
 	return (
-		<div className='flex h-full w-full flex-wrap items-start'>
-			<Wind speed={currWeather.wind.speed} degrees={currWeather.wind.deg} />
-			<SunriseSunset sunrise={currWeather.sys.sunrise} sunset={currWeather.sys.sunset} />
-			<Humidity humidity={currWeather.main.humidity} />
-			<Visibility value={currWeather.visibility} />
-			<AtmosPressure
-				pressure={currWeather.main.pressure}
-				sea_level={currWeather.main.sea_level}
-				grnd_level={currWeather.main.grnd_level}
-			/>
-		</div>
+		<>
+			<div className='my-4 flex h-full w-full flex-wrap items-start justify-evenly gap-4'>
+				<Wind speed={currWeather.wind.speed} degrees={currWeather.wind.deg} />
+				<SunriseSunset sunrise={currWeather.sys.sunrise} sunset={currWeather.sys.sunset} />
+				<Humidity humidity={currWeather.main.humidity} />
+				<Visibility value={currWeather.visibility} />
+				<AtmosPressure
+					pressure={currWeather.main.pressure}
+					sea_level={currWeather.main.sea_level}
+					grnd_level={currWeather.main.grnd_level}
+				/>
+			</div>
+			<hr />
+		</>
 	);
 };
 
