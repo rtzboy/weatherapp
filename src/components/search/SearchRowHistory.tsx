@@ -8,11 +8,11 @@ import XMarkIcon from '../icons/XMarkIcon';
 import { applyLatLon, SearchRowProps } from './SearchRow';
 
 const SearchRowHistory = ({ country, lat, lon, name, state, setSearchHistory }: SearchRowProps) => {
-	const { setCurrWeather } = useSearchBoxContext();
+	const { setCurrWeather, setForecast } = useSearchBoxContext();
 	return (
 		<li
 			onClick={evt => {
-				applyLatLon(setCurrWeather, lat, lon);
+				applyLatLon(setCurrWeather, setForecast, lat, lon);
 			}}
 			className='flex cursor-pointer items-center justify-between gap-3 p-2 transition-all hover:bg-gray-500/30'
 		>

@@ -1,9 +1,9 @@
 import React, { Dispatch } from 'react';
-import { CurrWeatherType } from '../../App';
+import { CurrWeatherType, ForestWeatherType } from '../../App';
 import { STORAGE_KEY } from '../../constants/StringConstants';
 import { getURLFlag } from '../../constants/URLFlajs';
 import { getStoreSearchHistory, storeSearchHistory } from '../../helpers/localStorage';
-import { weatherWeek } from '../../lib/api/api';
+import { WeatherData, weatherWeek } from '../../lib/api/api';
 import { useSearchBoxContext } from '../../lib/contexts/SearchBoxContext';
 
 export interface SearchRowProps {
@@ -16,6 +16,10 @@ export interface SearchRowProps {
 	setSearchHistory: Dispatch<React.SetStateAction<any[]>>;
 }
 
+interface WeatherFilter {
+	[key: string]: WeatherData[];
+}
+
 const SearchRow = ({
 	country,
 	lat,
@@ -25,7 +29,7 @@ const SearchRow = ({
 	local_names,
 	setSearchHistory
 }: SearchRowProps) => {
-	const { setCurrWeather } = useSearchBoxContext();
+	const { setCurrWeather, setForecast } = useSearchBoxContext();
 
 	const handleUpdateHistory = () => {
 		const valueHistory = getStoreSearchHistory(STORAGE_KEY) || [];
@@ -43,7 +47,7 @@ const SearchRow = ({
 	return (
 		<li
 			onClick={() => {
-				applyLatLon(setCurrWeather, lat, lon);
+				applyLatLon(setCurrWeather, setForecast, lat, lon);
 				handleUpdateHistory();
 			}}
 			className='flex cursor-pointer items-center gap-3 p-3 transition-all hover:bg-gray-500/30'
@@ -64,15 +68,27 @@ const SearchRow = ({
 
 export const applyLatLon = async (
 	setCurrWeather: Dispatch<React.SetStateAction<CurrWeatherType>>,
+	setForecast: Dispatch<React.SetStateAction<ForestWeatherType>>,
 	lat: number,
 	lon: number
 ) => {
-	const { error, results, success, currWeatherResult } = await weatherWeek(
+	const { error, success, forecastResults, currWeatherResult } = await weatherWeek(
 		lat.toString(),
 		lon.toString()
 	);
-	if (results !== undefined && success) {
+	if (forecastResults !== undefined && success) {
+		const filterWeather = Object.values(
+			forecastResults.list.reduce((acum: WeatherFilter, curr) => {
+				const date = curr.dt_txt.slice(0, 10);
+				if (!acum[date]) {
+					acum[date] = [];
+				}
+				acum[date].push(curr);
+				return acum;
+			}, {})
+		);
 		setCurrWeather(currWeatherResult);
+		setForecast(filterWeather);
 	} else {
 		console.log(error);
 	}

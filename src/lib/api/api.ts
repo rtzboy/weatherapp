@@ -42,11 +42,11 @@ export interface ResultsCity {
 export interface ResultWeather {
 	error: string;
 	success: boolean;
-	results: ResultsCity | undefined;
+	forecastResults: ResultsCity | undefined;
 	currWeatherResult: CurrentWeather | undefined;
 }
 
-interface WeatherData {
+export interface WeatherData {
 	clouds: Clouds;
 	dt: number;
 	dt_txt: string;
@@ -134,14 +134,14 @@ export const weatherWeek = async (lat: string, lon: string): Promise<ResultWeath
 			return {
 				error: 'false',
 				success: true,
-				results: resultForecast,
+				forecastResults: resultForecast,
 				currWeatherResult: resultCurrent
 			};
 		} else {
 			return {
 				error: resForecast.statusText,
 				success: false,
-				results: undefined,
+				forecastResults: undefined,
 				currWeatherResult: undefined
 			};
 		}
@@ -149,7 +149,7 @@ export const weatherWeek = async (lat: string, lon: string): Promise<ResultWeath
 		return {
 			error: `error: ${error}`,
 			success: false,
-			results: undefined,
+			forecastResults: undefined,
 			currWeatherResult: undefined
 		};
 	}

@@ -1,6 +1,6 @@
 export const URL_WEATHER = 'https://api.openweathermap.org';
 
-export const week: string[] = [
+export const weekDays: string[] = [
 	'Sunday',
 	'Monday',
 	'Tuesday',
@@ -9,6 +9,8 @@ export const week: string[] = [
 	'Friday',
 	'Saturday'
 ];
+
+export const weekDaysAbbr: string[] = ['Sun.', 'Mon.', 'Tues.', 'Wed.', 'Thurs.', 'Fri.', 'Sat.'];
 
 export const month: string[] = [
 	'Jan',

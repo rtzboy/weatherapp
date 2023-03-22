@@ -1,5 +1,5 @@
 import { CurrWeatherType } from '../App';
-import { month, week } from '../constants/StringConstants';
+import { month, weekDays } from '../constants/StringConstants';
 import { getURLFlag } from '../constants/URLFlajs';
 import { CurrentWeather } from '../lib/api/api';
 import TimeUpdate from './TimeUpdate';
@@ -15,7 +15,6 @@ const LeftSide = ({ currWeather }: LeftSideProps) => {
 			<div className='my-4 text-center font-lato tracking-wider'>
 				<span className='text-2xl'>{dayOfWeek(currWeather.dt)}</span>
 			</div>
-
 			<div className='my-4 flex items-center justify-center text-center'>
 				<div className='bg-radial-img rounded-full'>{imgWeather(currWeather)}</div>
 			</div>
@@ -90,7 +89,7 @@ const hourDate = (date: number): string => {
 const dayOfWeek = (dateStr: number): string => {
 	const date = new Date(dateStr * 1000);
 	const dayWeek = date.getDay();
-	return `${week[dayWeek]}, ${date.getDate()} ${month[date.getMonth()]}`;
+	return `${weekDays[dayWeek]}, ${date.getDate()} ${month[date.getMonth()]}`;
 };
 
 const timezoneUTC = (timezone: number): string => {
