@@ -11,9 +11,14 @@ interface ForecastProps {
 	forecast: ForestWeatherType;
 }
 
-interface ForecastToId {
+interface ArrayForecast {
 	id: number;
-	item: WeatherData[];
+	arrForecast: ItemWeatherData[];
+}
+
+interface ItemWeatherData {
+	itemWeatherId: number;
+	itemWeatherData: WeatherData;
 }
 
 const Forecast = ({ forecast }: ForecastProps) => {
@@ -22,8 +27,15 @@ const Forecast = ({ forecast }: ForecastProps) => {
 	const [toggleDays, setToggleDays] = useState<number>(0);
 	const [toggleHour, setToggleHour] = useState<number>(0);
 
-	const forecastWithId: ForecastToId[] = [];
-	forecast.map((item, itemIdx) => forecastWithId.push({ id: itemIdx, item }));
+	const forecastFiltered: ArrayForecast[] = [];
+
+	forecast.map((item, itemIdx) => {
+		let itemForecast: ItemWeatherData[] = [];
+		item.map((itemWeatherData, itemWeatherId) => {
+			itemForecast.push({ itemWeatherId, itemWeatherData });
+		});
+		forecastFiltered.push({ id: itemIdx, arrForecast: itemForecast });
+	});
 
 	return (
 		<>
@@ -31,7 +43,7 @@ const Forecast = ({ forecast }: ForecastProps) => {
 			<div>
 				<nav>
 					<ul className='flex items-center justify-evenly'>
-						{forecastWithId.map(elm => (
+						{forecastFiltered.map(elm => (
 							<li
 								key={elm.id}
 								onClick={() => {
@@ -40,13 +52,13 @@ const Forecast = ({ forecast }: ForecastProps) => {
 								}}
 								className='cursor-pointer select-none border border-orange-500 p-1'
 							>
-								{forecastWeek(elm.item[0].dt_txt)}
+								{forecastWeek(elm.arrForecast[0].itemWeatherData.dt_txt)}
 							</li>
 						))}
 					</ul>
 				</nav>
 				<div className='relative'>
-					{forecastWithId.map(forecastDays => (
+					{forecastFiltered.map(forecastDays => (
 						<div
 							key={forecastDays.id}
 							className={`leading-relaxed transition-all duration-500 ${
@@ -56,44 +68,49 @@ const Forecast = ({ forecast }: ForecastProps) => {
 							}`}
 						>
 							<div className=''>
+								{/* TABS (HOURS) */}
 								<nav>
 									<ul className='flex flex-wrap items-center justify-center gap-4'>
-										{forecastDays.item.map((forecastDay, foreIdx) => (
+										{forecastDays.arrForecast.map(forecastDay => (
 											<li
-												key={forecastDay.dt}
-												onClick={() => setToggleHour(foreIdx)}
+												key={forecastDay.itemWeatherId}
+												onClick={() => setToggleHour(forecastDay.itemWeatherId)}
 												className='cursor-pointer select-none rounded-lg border border-green-500 p-1'
 											>
-												{forecastDay.dt_txt.slice(11, 16)}
+												{forecastDay.itemWeatherData.dt_txt.slice(11, 16)}
 											</li>
 										))}
 									</ul>
 								</nav>
 								<div className='relative'>
-									{forecastDays.item.map((itemForest, itemIdx) => (
+									{forecastDays.arrForecast.map(itemForest => (
 										<div
-											key={itemForest.dt}
+											key={itemForest.itemWeatherId}
 											className={`flex flex-wrap leading-relaxed transition-all duration-500 ${
-												toggleHour === itemIdx
+												toggleHour === itemForest.itemWeatherId
 													? 'visible relative top-auto left-auto scale-100 opacity-100'
 													: 'invisible absolute inset-0 scale-90 overflow-hidden opacity-0'
 											}`}
 										>
-											<span className='text-cyan-700'>{forecastWeek(itemForest.dt_txt)}</span>
-											<span className='text-fuchsia-500'>{itemForest.dt_txt}</span>
-											<span className='text-6xl'>{(itemForest.main.temp - 273).toFixed(1)}</span>
-											<p>{itemForest.weather[0].description}</p>
+											<span className='text-cyan-700'>
+												{forecastWeek(itemForest.itemWeatherData.dt_txt)}
+											</span>
+											<span className='text-fuchsia-500'>{itemForest.itemWeatherData.dt_txt}</span>
+											<span className='text-6xl'>
+												{(itemForest.itemWeatherData.main.temp - 273).toFixed(1)}
+											</span>
+											<p>{itemForest.itemWeatherData.weather[0].description}</p>
 											<Wind
 												className='text-base'
-												speed={itemForest.wind.speed}
-												degrees={itemForest.wind.deg}
+												speed={itemForest.itemWeatherData.wind.speed}
+												degrees={itemForest.itemWeatherData.wind.deg}
 											/>
-											<Visibility value={itemForest.visibility} />
-											<Humidity humidity={itemForest.main.humidity} />
+											<Visibility value={itemForest.itemWeatherData.visibility} />
+											<Humidity humidity={itemForest.itemWeatherData.main.humidity} />
 											<AtmosPressure
-												pressure={itemForest.main.pressure}
-												sea_level={itemForest.main.sea_level}
-												grnd_level={itemForest.main.grnd_level}
+												pressure={itemForest.itemWeatherData.main.pressure}
+												sea_level={itemForest.itemWeatherData.main.sea_level}
+												grnd_level={itemForest.itemWeatherData.main.grnd_level}
 											/>
 										</div>
 									))}
