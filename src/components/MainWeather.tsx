@@ -1,27 +1,36 @@
 import { CurrWeatherType } from '../App';
-import { month, weekDays } from '../constants/StringConstants';
 import { getURLFlag } from '../constants/URLFlajs';
 import { CurrentWeather } from '../lib/api/api';
+import WeatherDescription from './mainweather/WeatherDescription';
+import WeatherImg from './mainweather/WeatherImg';
+import WeatherTemp from './mainweather/WeatherTemp';
+import WeekDay from './mainweather/WeekDay';
 import TimeUpdate from './TimeUpdate';
 
 interface LeftSideProps {
 	currWeather?: CurrentWeather;
 }
 
-const LeftSide = ({ currWeather }: LeftSideProps) => {
+const MainWeather = ({ currWeather }: LeftSideProps) => {
 	if (!currWeather) return <p>Loading...</p>;
 	return (
 		<>
-			<div className='my-4 text-center font-lato tracking-wider'>
-				<span className='text-2xl'>{dayOfWeek(currWeather.dt)}</span>
-			</div>
-			<div className='my-4 flex items-center justify-center text-center'>
-				<div className='bg-radial-img rounded-full'>{imgWeather(currWeather)}</div>
-			</div>
-			<div className='my-4 flex justify-center gap-2 font-montserrat'>
-				<span className='text-6xl'>{(currWeather.main.temp - 273).toFixed(1)}</span>
-				<span className='text-3xl'>°C</span>
-			</div>
+			<WeekDay
+				className='my-4 text-center font-lato tracking-wider'
+				styleTime='text-2xl'
+				actualTime={currWeather.dt * 1000}
+			/>
+			<WeatherImg
+				image={currWeather.weather[0].icon}
+				className='my-4 flex items-center justify-center text-center'
+				styleImgIcon='inline-block h-44 w-44'
+			/>
+			<WeatherTemp
+				temp={currWeather.main.temp}
+				className='my-4 flex justify-center gap-2 font-montserrat'
+				styleTemp='text-6xl'
+				styleC='text-3xl'
+			/>
 			<div className='my-4 flex justify-center gap-2'>
 				<img src={getURLFlag(currWeather.sys.country)} alt='' className='w-7' />
 				<span>{currWeather.name},</span>
@@ -41,17 +50,11 @@ const LeftSide = ({ currWeather }: LeftSideProps) => {
 				<span>Timezone: </span>
 				<span>{timezoneUTC(currWeather.timezone)}</span>
 			</div>
-			<div className='my-4 flex items-center gap-2'>
-				<span>
-					<img
-						src={`https://openweathermap.org/img/w/${currWeather.weather[0].icon}.png`}
-						alt=''
-						className='inline-block h-9 w-9'
-					/>
-				</span>
-				<span>{currWeather.weather[0].description}</span>
-				<span>{currWeather.weather[1]?.description}</span>
-			</div>
+			<WeatherDescription
+				description={currWeather.weather[0].description}
+				descriptionOpt={currWeather.weather[1]?.description}
+				strImg={currWeather.weather[0].icon}
+			/>
 			<TimeUpdate currentDate={currWeather.dt} />
 			{rainVolume(currWeather)}
 			<hr />
@@ -74,22 +77,9 @@ const rainVolume = (currWeather: CurrWeatherType) => {
 	);
 };
 
-const imgWeather = (currWeather: CurrWeatherType) => {
-	if (!currWeather) return <img src={'./refresh.svg'} alt='' />;
-	return (
-		<img src={`/${currWeather.weather[0].icon}.svg`} alt='' className='inline-block h-44 w-44' />
-	);
-};
-
 const hourDate = (date: number): string => {
 	const todayDate = new Date(date * 1000);
 	return todayDate.toTimeString().slice(0, 5);
-};
-
-const dayOfWeek = (dateStr: number): string => {
-	const date = new Date(dateStr * 1000);
-	const dayWeek = date.getDay();
-	return `${weekDays[dayWeek]}, ${date.getDate()} ${month[date.getMonth()]}`;
 };
 
 const timezoneUTC = (timezone: number): string => {
@@ -101,4 +91,4 @@ const timezoneUTC = (timezone: number): string => {
 		.padStart(2, '0')}`;
 };
 
-export default LeftSide;
+export default MainWeather;

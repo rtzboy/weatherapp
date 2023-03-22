@@ -9,7 +9,7 @@ interface RightSideProps {
 	currWeather?: CurrentWeather;
 }
 
-const RightSide = ({ currWeather }: RightSideProps) => {
+const SecondWeather = ({ currWeather }: RightSideProps) => {
 	if (currWeather === undefined) return <p>Loading...</p>;
 	return (
 		<>
@@ -29,4 +29,4 @@ const RightSide = ({ currWeather }: RightSideProps) => {
 	);
 };
 
-export default RightSide;
+export default SecondWeather;

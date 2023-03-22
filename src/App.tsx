@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import Forecast from './components/Forecast';
-import LeftSide from './components/LeftSide';
-import RightSide from './components/RightSide';
+import MainWeather from './components/MainWeather';
 import SearchBox from './components/search/SearchBox';
 import { applyLatLon } from './components/search/SearchRow';
+import SecondWeather from './components/SecondWeather';
 import { RANDOM_CITIES } from './constants/StringConstants';
 import { CurrentWeather, WeatherData } from './lib/api/api';
 import { SearchBoxContext } from './lib/contexts/SearchBoxContext';
@@ -31,10 +31,10 @@ const App = () => {
 				<SearchBoxContext.Provider value={{ setCurrWeather, setForecast }}>
 					<section className='mb-5'>
 						<SearchBox />
-						<LeftSide currWeather={currWeather} />
+						<MainWeather currWeather={currWeather} />
 					</section>
 					<section className='mb-5'>
-						<RightSide currWeather={currWeather} />
+						<SecondWeather currWeather={currWeather} />
 					</section>
 					<section className='mb-5'>
 						<Forecast forecast={forecast} />
