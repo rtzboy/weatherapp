@@ -2,17 +2,24 @@ import EyeIcon from '../icons/EyeIcon';
 
 interface VisibilityProps {
 	value: number;
+	className?: string;
 }
 
-const Visibility = ({ value }: VisibilityProps) => {
+const Visibility = ({ value, className }: VisibilityProps) => {
 	const valueVisibility = visibilityTextValue(value / 1000);
 
 	return (
-		<article className='flex flex-col gap-2 rounded-2xl bg-white p-4 px-5 text-lg shadow-inf'>
+		<article
+			className={`flex flex-col gap-2 rounded-2xl bg-white p-4 px-5 shadow-inf ${
+				className || 'text-lg'
+			}`}
+		>
 			<h2 className='font-lato tracking-wide'>Visibility</h2>
 			<div className='flex flex-col gap-3'>
 				<p>
-					<span className='text-3xl'>{(value / 1000).toFixed(2)}</span>
+					<span className={`${className ? 'text-2xl' : 'text-3xl'}`}>
+						{(value / 1000).toFixed(2)}
+					</span>
 					<span> Km</span>
 				</p>
 				<div className='flex items-center gap-2'>

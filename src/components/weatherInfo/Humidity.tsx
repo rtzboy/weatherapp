@@ -1,16 +1,21 @@
 interface HumidityProps {
 	humidity: number;
+	className?: string;
 }
 
-const Humidity = ({ humidity }: HumidityProps) => {
+const Humidity = ({ humidity, className }: HumidityProps) => {
 	const properties = getStyleAndValue(humidity);
 	return (
-		<article className='flex flex-col gap-2 rounded-2xl bg-white p-4 text-lg shadow-inf'>
+		<article
+			className={`flex flex-col gap-2 rounded-2xl bg-white p-4 shadow-inf ${
+				className || 'text-lg'
+			}`}
+		>
 			<h2 className='font-lato tracking-wide'>Humidity</h2>
 			<div className='flex items-center gap-4'>
 				<div className='flex flex-col gap-2'>
 					<div className='flex gap-1'>
-						<div className='text-3xl'>{humidity}</div>
+						<div className={`${className ? 'text-2xl' : 'text-3xl'}`}>{humidity}</div>
 						<div className=''>%</div>
 					</div>
 					<div className='text-base text-gray-600'>{properties.value}</div>

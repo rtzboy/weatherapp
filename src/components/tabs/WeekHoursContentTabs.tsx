@@ -16,19 +16,16 @@ interface WeekHoursContentTabsProps {
 const WeekHoursContentTabs = (props: WeekHoursContentTabsProps) => {
 	const { forecastDays, toggleHour } = props;
 	return (
-		<div className='relative rounded-lg border border-purple-500'>
+		<div className='relative rounded-lg'>
 			{forecastDays.map(itemForest => (
 				<div
 					key={itemForest.itemWeatherId}
 					className={`flex flex-col items-center leading-relaxed transition-all duration-500 ${
 						toggleHour === itemForest.itemWeatherId
-							? 'visible relative top-auto left-auto scale-100 opacity-100'
-							: 'invisible absolute inset-0 scale-90 overflow-hidden opacity-0'
+							? 'visible relative top-auto left-auto opacity-100'
+							: 'invisible absolute inset-0 overflow-hidden opacity-0'
 					}`}
 				>
-					<span className='text-cyan-700'>
-						{/* {forecastWeek(itemForest.itemWeatherData.dt_txt)} */}
-					</span>
 					<WeekDay
 						styleTime='text-xl'
 						className='my-4 text-center font-lato tracking-wider'
@@ -54,15 +51,16 @@ const WeekHoursContentTabs = (props: WeekHoursContentTabsProps) => {
 						descriptionOpt={itemForest.itemWeatherData.weather[1]?.description}
 						strImg={itemForest.itemWeatherData.weather[0].icon}
 					/>
-					<div>
+					<div className='flex flex-wrap justify-evenly gap-2'>
 						<Wind
 							className='text-base'
 							speed={itemForest.itemWeatherData.wind.speed}
 							degrees={itemForest.itemWeatherData.wind.deg}
 						/>
-						<Visibility value={itemForest.itemWeatherData.visibility} />
-						<Humidity humidity={itemForest.itemWeatherData.main.humidity} />
+						<Visibility className='text-base' value={itemForest.itemWeatherData.visibility} />
+						<Humidity className='text-base' humidity={itemForest.itemWeatherData.main.humidity} />
 						<AtmosPressure
+							className='text-base'
 							pressure={itemForest.itemWeatherData.main.pressure}
 							sea_level={itemForest.itemWeatherData.main.sea_level}
 							grnd_level={itemForest.itemWeatherData.main.grnd_level}

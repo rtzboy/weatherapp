@@ -50,7 +50,7 @@ const Forecast = ({ forecast }: ForecastProps) => {
 				<WeekdaysTabs
 					forecastFiltered={forecastFiltered}
 					changeDaysTabs={handleChangeWeekdaysTabs}
-					className='flex items-center justify-evenly'
+					toggleDays={toggleDays}
 				/>
 				<WeekDaysContentTabs
 					forecastFiltered={forecastFiltered}

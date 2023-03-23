@@ -12,7 +12,7 @@ export interface WeekDaysContentTabsProps {
 const WeekDaysContentTabs = (props: WeekDaysContentTabsProps) => {
 	const { forecastFiltered, toggleDays, toggleHour, changeHourTabs } = props;
 	return (
-		<div className='relative'>
+		<div className='relative my-4'>
 			{forecastFiltered.map(forecastDays => (
 				<div
 					key={forecastDays.id}
@@ -27,6 +27,7 @@ const WeekDaysContentTabs = (props: WeekDaysContentTabsProps) => {
 						<WeekhoursTabs
 							forecastDays={forecastDays.arrForecast}
 							changeHourTabs={changeHourTabs}
+							toggleHour={toggleHour}
 						/>
 						<WeekHoursContentTabs forecastDays={forecastDays.arrForecast} toggleHour={toggleHour} />
 					</div>
