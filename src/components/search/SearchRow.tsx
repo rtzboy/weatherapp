@@ -77,8 +77,23 @@ export const applyLatLon = async (
 		lon.toString()
 	);
 	if (forecastResults !== undefined && success) {
+		const updateUTC = forecastResults.list.map(elmUTC => {
+			const timezoneInHours = Math.abs(forecastResults.city.timezone / 3600);
+			const timezoneInMinutes = Math.abs((forecastResults.city.timezone / 60) % 60);
+			const sign = forecastResults.city.timezone >= 0 ? '+' : '-';
+
+			const date = new Date(elmUTC.dt_txt);
+			date.setHours(date.getHours() + parseInt(sign + timezoneInHours));
+			date.setMinutes(date.getMinutes() + parseInt(sign + timezoneInMinutes));
+
+			const offset = date.getTimezoneOffset();
+			const dateTwo = new Date(date.getTime() - offset * 60 * 1000);
+
+			return { ...elmUTC, dt_txt: dateTwo.toISOString().split('T').join(' ').slice(0, 19) };
+		});
+
 		const filterWeather = Object.values(
-			forecastResults.list.reduce((acum: WeatherFilter, curr) => {
+			updateUTC.reduce((acum: WeatherFilter, curr) => {
 				const date = curr.dt_txt.slice(0, 10);
 				if (!acum[date]) {
 					acum[date] = [];

@@ -32,4 +32,5 @@ const WeekhoursTabs = (props: WeekhoursTabsProps) => {
 		</nav>
 	);
 };
+
 export default WeekhoursTabs;

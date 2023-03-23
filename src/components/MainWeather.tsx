@@ -12,7 +12,11 @@ interface LeftSideProps {
 }
 
 const MainWeather = ({ currWeather }: LeftSideProps) => {
-	if (!currWeather) return <p>Loading...</p>;
+	// if (!currWeather) return <p>Loading...</p>;
+	const isLoading = currWeather;
+
+	if (!isLoading) return <div className='m-4 h-screen w-full animate-pulse rounded-3xl'></div>;
+
 	return (
 		<>
 			<WeekDay

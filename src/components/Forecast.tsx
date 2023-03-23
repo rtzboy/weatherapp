@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ForestWeatherType } from '../App';
 import { WeatherData } from '../lib/api/api';
 import WeekDaysContentTabs from './tabs/WeekDaysContentTabs';
@@ -32,6 +32,11 @@ const Forecast = ({ forecast }: ForecastProps) => {
 	const handleChangeHourTabs = (id: number) => {
 		setToggleHour(id);
 	};
+
+	useEffect(() => {
+		setToggleDays(0);
+		setToggleHour(0);
+	}, [forecast]);
 
 	const forecastFiltered: ArrayForecast[] = [];
 
