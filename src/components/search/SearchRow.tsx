@@ -3,7 +3,8 @@ import { CurrWeatherType, ForestWeatherType } from '../../App';
 import { STORAGE_KEY } from '../../constants/StringConstants';
 import { getURLFlag } from '../../constants/URLFlajs';
 import { getStoreSearchHistory, storeSearchHistory } from '../../helpers/localStorage';
-import { WeatherData, weatherWeek } from '../../lib/api/api';
+import { WeatherData } from '../../interfaces/ApiCallInterface';
+import { weatherWeek } from '../../lib/api/api';
 import { useSearchBoxContext } from '../../lib/contexts/SearchBoxContext';
 
 export interface SearchRowProps {
@@ -50,12 +51,12 @@ const SearchRow = ({
 				applyLatLon(setCurrWeather, setForecast, lat, lon);
 				handleUpdateHistory();
 			}}
-			className='flex cursor-pointer items-center gap-3 p-3 transition-all hover:bg-gray-500/30'
+			className='flex cursor-pointer items-center gap-3 p-3 transition-all hover:bg-sky-50'
 		>
 			<div>
 				<img src={getURLFlag(country)} alt={name} className='h-3 w-5' />
 			</div>
-			<div className=''>
+			<div>
 				<span>{name}, </span>
 				<span> {country}</span>
 			</div>

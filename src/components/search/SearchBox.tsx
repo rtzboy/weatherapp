@@ -33,7 +33,7 @@ const SearchBox = () => {
 	};
 
 	return (
-		<div ref={wrapperRef} className='relative max-w-full' onFocus={checkSearchHistory}>
+		<div ref={wrapperRef} className='relative text-slate-800' onFocus={checkSearchHistory}>
 			<div className='flex items-center justify-center gap-2'>
 				<div className='relative'>
 					<Input
@@ -41,10 +41,10 @@ const SearchBox = () => {
 						onKeyUp={handleKeyEnter}
 						type='text'
 						value={searchBox.searchTerm}
-						placeholder='Search for places ...'
-						className='w-full border px-8 tracking-wide outline-none transition-all placeholder:text-sm placeholder:font-light placeholder:italic placeholder:text-slate-500 focus:border-gray-300 focus:bg-slate-100'
+						placeholder='Search for places...'
+						className='peer w-full border border-sky-300 px-8 tracking-wide outline-none transition-all placeholder:text-sm placeholder:font-light placeholder:italic placeholder:text-slate-500 focus:border-sky-400 focus:shadow-inf focus:shadow-sky-200'
 					/>
-					<span className='absolute top-[50%] left-2 -translate-y-[50%] text-gray-500'>
+					<span className='absolute top-[50%] left-2 -translate-y-[50%] text-gray-500 peer-focus:text-sky-500'>
 						{searchBox.dataRow ? <MapIcon className='h-5' /> : <SearchIcon className='h-5' />}
 					</span>
 					{searchBox.dataRow && (

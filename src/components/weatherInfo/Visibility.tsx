@@ -10,17 +10,15 @@ const Visibility = ({ value, className }: VisibilityProps) => {
 
 	return (
 		<article
-			className={`flex flex-col gap-2 rounded-2xl bg-white p-4 px-5 shadow-inf ${
+			className={`flex flex-col gap-2 rounded-2xl bg-white/80 p-4 shadow-inf shadow-sky-200 ${
 				className || 'text-lg'
 			}`}
 		>
-			<h2 className='font-lato tracking-wide'>Visibility</h2>
+			<h2 className='font-lato text-lg tracking-wide text-gray-500'>Visibility</h2>
 			<div className='flex flex-col gap-3'>
 				<p>
-					<span className={`${className ? 'text-2xl' : 'text-3xl'}`}>
-						{(value / 1000).toFixed(2)}
-					</span>
-					<span> Km</span>
+					<span className='text-3xl font-semibold'>{(value / 1000).toFixed(2)}</span>
+					<span className='font-semibold'> Km</span>
 				</p>
 				<div className='flex items-center gap-2'>
 					<p className='text-base text-gray-600'>{valueVisibility}</p>

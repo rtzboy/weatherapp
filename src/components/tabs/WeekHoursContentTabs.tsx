@@ -51,7 +51,7 @@ const WeekHoursContentTabs = (props: WeekHoursContentTabsProps) => {
 						descriptionOpt={itemForest.itemWeatherData.weather[1]?.description}
 						strImg={itemForest.itemWeatherData.weather[0].icon}
 					/>
-					<div className='flex flex-wrap justify-evenly gap-2'>
+					<div className='flex w-full flex-wrap justify-evenly gap-8 md:justify-evenly md:gap-4'>
 						<Wind
 							className='text-base'
 							speed={itemForest.itemWeatherData.wind.speed}

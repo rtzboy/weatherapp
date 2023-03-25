@@ -1,5 +1,5 @@
+import { City } from '../../interfaces/ApiCallInterface';
 import { SearchActions } from '../../interfaces/SearchBoxInterface';
-import { City } from '../api/api';
 
 export const startSearch = (): SearchActions => ({ type: 'START_SEARCH' });
 

@@ -8,8 +8,8 @@ interface TimeUpdateProps {
 const language: string = 'en';
 
 const TimeUpdate = ({ currentDate }: TimeUpdateProps) => {
-	let idInterval = useRef<number>(0);
-	const [count, setCount] = useState(0);
+	const [count, setCount] = useState<number>(0);
+	let idInterval = useRef<NodeJS.Timeout | null>(null);
 
 	const locale = language === 'es' ? es : enUS;
 
@@ -17,7 +17,7 @@ const TimeUpdate = ({ currentDate }: TimeUpdateProps) => {
 		idInterval.current = setInterval(() => {
 			setCount(count => count + 1);
 		}, 5000);
-		return () => clearInterval(idInterval.current);
+		return () => clearInterval(idInterval.current!);
 	}, [count]);
 
 	return (

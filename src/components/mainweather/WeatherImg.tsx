@@ -9,7 +9,7 @@ const WeatherImg = (props: WeatherImgProps) => {
 
 	return (
 		<div className={`${className || ''}`}>
-			<div className='bg-radial-img rounded-full'>
+			<div className='rounded-full'>
 				<img src={`/${image}.svg`} alt={image} className={`${styleImgIcon || ''}`} />
 			</div>
 		</div>

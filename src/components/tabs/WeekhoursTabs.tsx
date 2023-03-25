@@ -16,8 +16,8 @@ const WeekhoursTabs = (props: WeekhoursTabsProps) => {
 					<li
 						key={forecastDay.itemWeatherId}
 						onClick={() => changeHourTabs(forecastDay.itemWeatherId)}
-						className={`relative cursor-pointer select-none overflow-hidden rounded-lg shadow-xl ${
-							toggleHour === forecastDay.itemWeatherId ? 'text-white' : ''
+						className={`relative cursor-pointer select-none overflow-hidden rounded-lg shadow-md shadow-sky-200 ${
+							toggleHour === forecastDay.itemWeatherId ? 'text-white' : 'bg-white'
 						}`}
 					>
 						<div

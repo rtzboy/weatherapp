@@ -10,14 +10,14 @@ interface SquareInfoProps {
 const Wind = ({ speed, degrees, className }: SquareInfoProps) => {
 	return (
 		<article
-			className={`flex flex-col gap-2 rounded-2xl bg-white p-4 shadow-inf ${
+			className={`flex flex-col gap-2 rounded-2xl bg-white/80 p-4 shadow-inf shadow-sky-200 ${
 				className || 'text-lg'
 			} `}
 		>
-			<h2 className='font-lato tracking-wide'>Wind Status</h2>
+			<h2 className='font-lato text-lg tracking-wide text-gray-500'>Wind Status</h2>
 			<p>
-				<span className={`${className ? 'text-2xl' : 'text-3xl'}`}>{(speed * 3.6).toFixed(1)}</span>
-				<span className=''> Km/h</span>
+				<span className='text-3xl font-semibold'>{(speed * 3.6).toFixed(1)}</span>
+				<span className='font-semibold'> Km/h</span>
 			</p>
 			<p className='flex items-center gap-2'>
 				<span>{getWindDirectionString(degrees)}</span>

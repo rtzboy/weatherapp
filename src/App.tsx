@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Footer from './components/Footer';
 import Forecast from './components/Forecast';
 import MainWeather from './components/MainWeather';
 import SearchBox from './components/search/SearchBox';
 import { applyLatLon } from './components/search/SearchRow';
 import SecondWeather from './components/SecondWeather';
 import { RANDOM_CITIES } from './constants/StringConstants';
-import { CurrentWeather, WeatherData } from './lib/api/api';
+import { CurrentWeather, WeatherData } from './interfaces/ApiCallInterface';
 import { SearchBoxContext } from './lib/contexts/SearchBoxContext';
 
 export type CurrWeatherType = CurrentWeather | undefined;
@@ -14,34 +15,64 @@ export type ForestWeatherType = WeatherData[][] | undefined;
 const App = () => {
 	const [currWeather, setCurrWeather] = useState<CurrWeatherType>(undefined);
 	const [forecast, setForecast] = useState<ForestWeatherType>(undefined);
+	const [refreshWeather, setRefreshWeather] = useState(false);
+	const randomCity = useRef<number | null>(null);
+
 	useEffect(() => {
-		let randomNumber: number = Math.floor(Math.random() * (10 - 0 - 1) + 0);
+		if (randomCity.current !== null) return;
+		randomCity.current = Math.floor(Math.random() * (10 - 0 - 1) + 0);
 		applyLatLon(
 			setCurrWeather,
 			setForecast,
-			RANDOM_CITIES[randomNumber].lat,
-			RANDOM_CITIES[randomNumber].lon
+			RANDOM_CITIES[randomCity.current].lat,
+			RANDOM_CITIES[randomCity.current].lon
 		);
+		setTimeout(() => {
+			navigator.geolocation.getCurrentPosition(
+				pos => {
+					const userLatitude = pos.coords.latitude;
+					const userLongitude = pos.coords.longitude;
+					applyLatLon(setCurrWeather, setForecast, userLatitude, userLongitude);
+				},
+				err => {
+					console.log(err.code, err.message);
+				},
+				{ enableHighAccuracy: true }
+			);
+		}, 1500);
 	}, []);
+
+	useEffect(() => {
+		if (!currWeather) return;
+		applyLatLon(setCurrWeather, setForecast, currWeather.coord.lat, currWeather.coord.lon);
+	}, [refreshWeather]);
 
 	return (
 		<>
-			<main className='p-4'>
-				<h1 className='mb-5 font-montserrat text-3xl font-semibold'>Weather Forecast</h1>
+			<main className='mx-auto max-w-screen-xl p-8'>
+				<h1 className='mb-5 font-montserrat text-3xl font-semibold text-sky-900'>
+					Weather Forecast
+				</h1>
 				<SearchBoxContext.Provider value={{ setCurrWeather, setForecast }}>
-					<section className='mb-5'>
-						<SearchBox />
-						<MainWeather currWeather={currWeather} />
-					</section>
-					<section className='mb-5'>
-						<SecondWeather currWeather={currWeather} />
-					</section>
-					<section className='mb-5'>
-						<Forecast forecast={forecast} />
-					</section>
+					<article className='md:grid md:grid-cols-2'>
+						<section className='text-[#001A35]'>
+							<SearchBox />
+							<MainWeather
+								currWeather={currWeather}
+								refreshPage={setRefreshWeather}
+								refreshWeather={refreshWeather}
+							/>
+						</section>
+						<section className='px-4 text-[#001A35]'>
+							<SecondWeather currWeather={currWeather} />
+						</section>
+					</article>
 				</SearchBoxContext.Provider>
+				<section className='py-4 text-[#001A35]'>
+					<Forecast forecast={forecast} />
+				</section>
 			</main>
-			<footer className='my-8'>OPENWEATHERMAP</footer>
+			<Footer />
 		</>
 	);
 };

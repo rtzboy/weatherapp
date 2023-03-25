@@ -14,7 +14,7 @@ const SearchRowHistory = ({ country, lat, lon, name, state, setSearchHistory }: 
 			onClick={evt => {
 				applyLatLon(setCurrWeather, setForecast, lat, lon);
 			}}
-			className='flex cursor-pointer items-center justify-between gap-3 p-2 transition-all hover:bg-gray-500/30'
+			className='flex cursor-pointer items-center justify-between gap-3 p-2 transition-all hover:bg-sky-50'
 		>
 			<div className='flex items-center gap-3'>
 				<div>

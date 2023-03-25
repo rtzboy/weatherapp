@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
+import { City } from '../../interfaces/ApiCallInterface';
 import { SearchState } from '../../interfaces/SearchBoxInterface';
-import { City } from '../../lib/api/api';
 import SearchRow from './SearchRow';
 import SearchRowHistory from './SearchRowHistory';
 
@@ -33,7 +33,10 @@ const SearchBoxInfo = ({
 	const showRowHistory = searchBoxHistory(searchHistory, setSearchHistory);
 
 	return (
-		<ul className='absolute w-full rounded-lg border bg-white' onClick={() => setIsVisible(false)}>
+		<ul
+			className='absolute left-[50%] w-[360px] -translate-x-1/2 rounded-lg border bg-white'
+			onClick={() => setIsVisible(false)}
+		>
 			{showRowData || showRowHistory}
 		</ul>
 	);

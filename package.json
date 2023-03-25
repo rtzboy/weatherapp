@@ -6,7 +6,8 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"test:unit": "vitest --ui"
 	},
 	"dependencies": {
 		"date-fns": "2.29.3",
@@ -14,10 +15,12 @@
 		"react-dom": "18.2.0"
 	},
 	"devDependencies": {
+		"@testing-library/react": "14.0.0",
 		"@types/react": "18.0.27",
 		"@types/react-dom": "18.0.10",
 		"@typescript-eslint/eslint-plugin": "5.54.1",
 		"@vitejs/plugin-react-swc": "3.0.0",
+		"@vitest/ui": "0.29.7",
 		"autoprefixer": "10.4.13",
 		"eslint": "8.35.0",
 		"eslint-config-prettier": "8.7.0",
@@ -26,11 +29,13 @@
 		"eslint-plugin-n": "15.6.1",
 		"eslint-plugin-promise": "6.1.1",
 		"eslint-plugin-react": "7.32.2",
+		"jsdom": "21.1.1",
 		"postcss": "8.4.21",
 		"prettier": "2.8.4",
 		"prettier-plugin-tailwindcss": "0.2.4",
 		"tailwindcss": "3.2.7",
 		"typescript": "4.9.5",
-		"vite": "4.1.0"
+		"vite": "4.1.0",
+		"vitest": "0.29.7"
 	}
 }

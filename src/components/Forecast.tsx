@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ForestWeatherType } from '../App';
-import { WeatherData } from '../lib/api/api';
+import { WeatherData } from '../interfaces/ApiCallInterface';
 import WeekDaysContentTabs from './tabs/WeekDaysContentTabs';
 import WeekdaysTabs from './tabs/WeekdaysTabs';
 
@@ -19,8 +19,6 @@ export interface ItemWeatherData {
 }
 
 const Forecast = ({ forecast }: ForecastProps) => {
-	if (!forecast) return <p>Loading...</p>;
-
 	const [toggleDays, setToggleDays] = useState<number>(0);
 	const [toggleHour, setToggleHour] = useState<number>(0);
 
@@ -40,6 +38,8 @@ const Forecast = ({ forecast }: ForecastProps) => {
 
 	const forecastFiltered: ArrayForecast[] = [];
 
+	if (!forecast) return <p>Loading...</p>;
+
 	forecast.map((item, itemIdx) => {
 		let itemForecast: ItemWeatherData[] = [];
 		item.map((itemWeatherData, itemWeatherId) => {
@@ -50,8 +50,8 @@ const Forecast = ({ forecast }: ForecastProps) => {
 
 	return (
 		<>
-			<h2 className='text-3xl'>5-day forecast</h2>
-			<div>
+			<h2 className='font-inter text-3xl font-semibold'>5-day forecast</h2>
+			<div className='py-4 md:flex md:gap-4 md:p-4'>
 				<WeekdaysTabs
 					forecastFiltered={forecastFiltered}
 					changeDaysTabs={handleChangeWeekdaysTabs}

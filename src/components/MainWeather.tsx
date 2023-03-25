@@ -1,6 +1,9 @@
 import { CurrWeatherType } from '../App';
 import { getURLFlag } from '../constants/URLFlajs';
-import { CurrentWeather } from '../lib/api/api';
+import { CurrentWeather } from '../interfaces/ApiCallInterface';
+import IconButton from './form/IconButton';
+import ReloadIcon from './icons/ReloadIcon';
+import Load from './Load';
 import WeatherDescription from './mainweather/WeatherDescription';
 import WeatherImg from './mainweather/WeatherImg';
 import WeatherTemp from './mainweather/WeatherTemp';
@@ -9,18 +12,19 @@ import TimeUpdate from './TimeUpdate';
 
 interface LeftSideProps {
 	currWeather?: CurrentWeather;
+	refreshPage: React.Dispatch<React.SetStateAction<boolean>>;
+	refreshWeather: boolean;
 }
 
-const MainWeather = ({ currWeather }: LeftSideProps) => {
-	// if (!currWeather) return <p>Loading...</p>;
+const MainWeather = ({ currWeather, refreshPage, refreshWeather }: LeftSideProps) => {
 	const isLoading = currWeather;
 
-	if (!isLoading) return <div className='m-4 h-screen w-full animate-pulse rounded-3xl'></div>;
+	if (!isLoading) return <Load />;
 
 	return (
 		<>
 			<WeekDay
-				className='my-4 text-center font-lato tracking-wider'
+				className='my-4 text-center font-montserrat font-semibold tracking-wide'
 				styleTime='text-2xl'
 				actualTime={currWeather.dt * 1000}
 			/>
@@ -38,7 +42,7 @@ const MainWeather = ({ currWeather }: LeftSideProps) => {
 			<div className='my-4 flex justify-center gap-2'>
 				<img src={getURLFlag(currWeather.sys.country)} alt='' className='w-7' />
 				<span>{currWeather.name},</span>
-				<span>{codeToName(currWeather.sys.country)}</span>
+				<span className='font-bold'>{codeToName(currWeather.sys.country)}</span>
 			</div>
 			<div className='my-4 flex justify-center gap-2'>
 				<div>
@@ -50,7 +54,7 @@ const MainWeather = ({ currWeather }: LeftSideProps) => {
 					<span>{hourDate(currWeather.dt)}</span>
 				</div>
 			</div>
-			<div className='flex items-center justify-center gap-2'>
+			<div className='flex items-center justify-center gap-2 italic'>
 				<span>Timezone: </span>
 				<span>{timezoneUTC(currWeather.timezone)}</span>
 			</div>
@@ -59,9 +63,15 @@ const MainWeather = ({ currWeather }: LeftSideProps) => {
 				descriptionOpt={currWeather.weather[1]?.description}
 				strImg={currWeather.weather[0].icon}
 			/>
-			<TimeUpdate currentDate={currWeather.dt} />
 			{rainVolume(currWeather)}
-			<hr />
+			<div className='flex items-center gap-8'>
+				<TimeUpdate currentDate={currWeather.dt} />
+				<IconButton
+					className='hover:animate-pulse'
+					onClick={() => refreshPage(!refreshWeather)}
+					icon={ReloadIcon}
+				/>
+			</div>
 		</>
 	);
 };
@@ -75,7 +85,7 @@ const rainVolume = (currWeather: CurrWeatherType) => {
 	if (!currWeather?.rain) return;
 	return (
 		<div className='my-4 ml-1 flex items-center gap-2'>
-			<img src={'./public/rain.svg'} alt='rainVolume' className='w-7' />
+			<img src={'./rain.svg'} alt='rainVolume' className='w-7' />
 			<span>Rain volume {currWeather.rain['1h'] || currWeather.rain['3h']} mm</span>
 		</div>
 	);

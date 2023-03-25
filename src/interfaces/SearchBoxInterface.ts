@@ -1,4 +1,4 @@
-import { City } from '../lib/api/api';
+import { City } from './ApiCallInterface';
 
 interface SearchState {
 	searchTerm: string;
