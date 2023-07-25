@@ -63,7 +63,7 @@ const SOCIAL_LINKS = [
 	{
 		id: 3,
 		name: 'LinkedIn',
-		link: 'https://www.linkedin.com/in/jhoseph-poma-aldave-9b01a01a9/',
+		link: 'https://www.linkedin.com/in/jpomadev/',
 		icon: <Linkedin className='h-7' />
 	},
 	{

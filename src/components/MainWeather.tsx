@@ -1,8 +1,6 @@
 import { CurrWeatherType } from '../App';
 import { getURLFlag } from '../constants/URLFlajs';
 import { CurrentWeather } from '../interfaces/ApiCallInterface';
-import IconButton from './form/IconButton';
-import ReloadIcon from './icons/ReloadIcon';
 import Load from './Load';
 import WeatherDescription from './mainweather/WeatherDescription';
 import WeatherImg from './mainweather/WeatherImg';
@@ -66,11 +64,11 @@ const MainWeather = ({ currWeather, refreshPage, refreshWeather }: LeftSideProps
 			{rainVolume(currWeather)}
 			<div className='flex items-center gap-8'>
 				<TimeUpdate currentDate={currWeather.dt} />
-				<IconButton
+				{/* 	<IconButton
 					className='hover:animate-pulse'
 					onClick={() => refreshPage(!refreshWeather)}
 					icon={ReloadIcon}
-				/>
+				/> */}
 			</div>
 		</>
 	);
