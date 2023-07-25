@@ -62,13 +62,8 @@ const MainWeather = ({ currWeather, refreshPage, refreshWeather }: LeftSideProps
 				strImg={currWeather.weather[0].icon}
 			/>
 			{rainVolume(currWeather)}
-			<div className='flex items-center gap-8'>
+			<div className='flex gap-8'>
 				<TimeUpdate currentDate={currWeather.dt} />
-				{/* 	<IconButton
-					className='hover:animate-pulse'
-					onClick={() => refreshPage(!refreshWeather)}
-					icon={ReloadIcon}
-				/> */}
 			</div>
 		</>
 	);
