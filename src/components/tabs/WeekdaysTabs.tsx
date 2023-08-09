@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { weekDaysAbbr } from '../../constants/StringConstants';
 import { ArrayForecast } from '../Forecast';
 
@@ -15,15 +16,15 @@ const WeekdaysTabs = ({ toggleDays, changeDaysTabs, filteredForecast }: Weekdays
 					<li
 						key={elm.id}
 						onClick={() => changeDaysTabs(elm.id)}
-						className={`relative flex cursor-pointer select-none flex-col items-center overflow-hidden rounded-xl px-3 shadow-md shadow-sky-200 ${
-							toggleDays === elm.id ? 'text-white' : 'bg-white'
+						className={`relative flex cursor-pointer select-none flex-col items-center rounded-xl px-3 shadow-md shadow-sky-200 ${
+							toggleDays === elm.id
+								? 'text-white delay-200 transition-all duration-300'
+								: 'bg-white'
 						}`}
 					>
-						<div
-							className={`absolute -z-10 h-full transition-all duration-500 ${
-								toggleDays === elm.id ? 'bg-sky-700 w-full' : 'w-0'
-							}`}
-						/>
+						{toggleDays === elm.id ? (
+							<motion.div layoutId='xd' className='absolute bg-sky-700 -z-10 inset-0 rounded-xl' />
+						) : null}
 						<span className='pt-1'>
 							{forecastWeek(elm.arrForecast[0].itemWeatherData.dt_txt)[0]}
 						</span>

@@ -19,8 +19,8 @@ const WeekDaysContentTabs = (props: WeekDaysContentTabsProps) => {
 					key={forecastDays.id}
 					className={`leading-relaxed transition-all duration-500 ${
 						toggleDays === forecastDays.id
-							? 'visible relative top-auto left-auto scale-100 opacity-100'
-							: 'invisible absolute inset-0 scale-90 overflow-hidden opacity-0'
+							? 'visible relative top-auto left-auto opacity-100'
+							: 'invisible absolute inset-0 overflow-hidden opacity-0'
 					}`}
 				>
 					<div>

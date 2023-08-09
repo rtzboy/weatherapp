@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { ItemWeatherData } from '../Forecast';
 
 interface WeekhoursTabsProps {
@@ -8,7 +9,6 @@ interface WeekhoursTabsProps {
 
 const WeekhoursTabs = (props: WeekhoursTabsProps) => {
 	const { forecastDays, changeHourTabs, toggleHour } = props;
-
 	return (
 		<nav className='my-4'>
 			<ul className='flex flex-wrap items-center justify-center gap-4'>
@@ -16,15 +16,16 @@ const WeekhoursTabs = (props: WeekhoursTabsProps) => {
 					<li
 						key={forecastDay.itemWeatherId}
 						onClick={() => changeHourTabs(forecastDay.itemWeatherId)}
-						className={`relative cursor-pointer select-none overflow-hidden rounded-lg shadow-md shadow-sky-200 ${
+						className={`relative cursor-pointer select-none rounded-lg delay-200 transition-all shadow-md shadow-sky-200 ${
 							toggleHour === forecastDay.itemWeatherId ? 'text-white' : 'bg-white'
 						}`}
 					>
-						<div
-							className={`absolute -z-10 h-full transition-all duration-500 ${
-								toggleHour === forecastDay.itemWeatherId ? 'w-full bg-slate-900' : 'w-0'
-							}`}
-						/>
+						{toggleHour === forecastDay.itemWeatherId ? (
+							<motion.div
+								layoutId={`underline${forecastDay.itemWeatherData.dt_txt.slice(0, 10)}`}
+								className='absolute bg-slate-900 -z-10 w-full h-full rounded-lg'
+							/>
+						) : null}
 						<span className='px-2'>{forecastDay.itemWeatherData.dt_txt.slice(11, 16)}</span>
 					</li>
 				))}
