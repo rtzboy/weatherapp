@@ -4,16 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-	.levelHum {
-		@apply relative flex h-20 w-[30px] rotate-180 transform justify-center rounded-full border border-gray-500;
-	}
-
-	.levelBall {
-		@apply absolute h-4 w-4 -translate-y-1/2 transform rounded-full border bg-red-500 transition-all duration-500;
-	}
-}
-
 body {
 	@apply bg-[#47bcfe];
 	background: radial-gradient(
@@ -23,4 +13,14 @@ body {
 		rgba(133, 212, 255, 0.2) 50%,
 		rgba(91, 188, 255, 0.1) 76%
 	);
+}
+
+@layer components {
+	.levelHum {
+		@apply relative flex h-20 w-[30px] rotate-180 transform justify-center rounded-full border border-gray-500;
+	}
+
+	.levelBall {
+		@apply absolute h-4 w-4 -translate-y-1/2 transform rounded-full border bg-red-500 transition-all duration-500;
+	}
 }

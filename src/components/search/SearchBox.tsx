@@ -41,7 +41,7 @@ const SearchBox = () => {
 						onKeyUp={handleKeyEnter}
 						type='text'
 						value={searchBox.searchTerm}
-						placeholder='Search for places...'
+						placeholder='Search by cities...'
 						className='peer w-full border border-sky-300 px-8 tracking-wide outline-none transition-all placeholder:text-sm placeholder:font-light placeholder:italic placeholder:text-slate-500 focus:border-sky-400 focus:shadow-inf focus:shadow-sky-200'
 					/>
 					<span className='absolute top-[50%] left-2 -translate-y-[50%] text-gray-500 peer-focus:text-sky-500'>

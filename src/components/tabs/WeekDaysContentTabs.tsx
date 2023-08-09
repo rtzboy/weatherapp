@@ -3,17 +3,18 @@ import WeekHoursContentTabs from './WeekHoursContentTabs';
 import WeekhoursTabs from './WeekhoursTabs';
 
 export interface WeekDaysContentTabsProps {
-	forecastFiltered: ArrayForecast[];
+	filteredForecast: ArrayForecast[];
 	toggleDays: number;
 	toggleHour: number;
 	changeHourTabs: (id: number) => void;
 }
 
 const WeekDaysContentTabs = (props: WeekDaysContentTabsProps) => {
-	const { forecastFiltered, toggleDays, toggleHour, changeHourTabs } = props;
+	const { filteredForecast, toggleDays, toggleHour, changeHourTabs } = props;
+
 	return (
 		<div className='relative w-full'>
-			{forecastFiltered.map(forecastDays => (
+			{filteredForecast.map(forecastDays => (
 				<div
 					key={forecastDays.id}
 					className={`leading-relaxed transition-all duration-500 ${

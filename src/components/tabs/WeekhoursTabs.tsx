@@ -24,7 +24,7 @@ const WeekhoursTabs = (props: WeekhoursTabsProps) => {
 							className={`absolute -z-10 h-full transition-all duration-500 ${
 								toggleHour === forecastDay.itemWeatherId ? 'w-full bg-slate-900' : 'w-0'
 							}`}
-						></div>
+						/>
 						<span className='px-2'>{forecastDay.itemWeatherData.dt_txt.slice(11, 16)}</span>
 					</li>
 				))}

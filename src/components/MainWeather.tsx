@@ -1,23 +1,21 @@
 import { CurrWeatherType } from '../App';
 import { getURLFlag } from '../constants/URLFlajs';
 import { CurrentWeather } from '../interfaces/ApiCallInterface';
-import Load from './Load';
+import TimeUpdate from './TimeUpdate';
 import WeatherDescription from './mainweather/WeatherDescription';
 import WeatherImg from './mainweather/WeatherImg';
 import WeatherTemp from './mainweather/WeatherTemp';
 import WeekDay from './mainweather/WeekDay';
-import TimeUpdate from './TimeUpdate';
+import MainWeatherSke from './skeletons/MainWeatherSke';
 
 interface LeftSideProps {
 	currWeather?: CurrentWeather;
-	refreshPage: React.Dispatch<React.SetStateAction<boolean>>;
-	refreshWeather: boolean;
 }
 
-const MainWeather = ({ currWeather, refreshPage, refreshWeather }: LeftSideProps) => {
+const MainWeather = ({ currWeather }: LeftSideProps) => {
 	const isLoading = currWeather;
 
-	if (!isLoading) return <Load />;
+	if (!isLoading) return <MainWeatherSke />;
 
 	return (
 		<>

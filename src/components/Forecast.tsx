@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ForestWeatherType } from '../App';
 import { WeatherData } from '../interfaces/ApiCallInterface';
+import ForecastSke from './skeletons/ForecastSke';
 import WeekDaysContentTabs from './tabs/WeekDaysContentTabs';
 import WeekdaysTabs from './tabs/WeekdaysTabs';
 
@@ -21,6 +22,7 @@ export interface ItemWeatherData {
 const Forecast = ({ forecast }: ForecastProps) => {
 	const [toggleDays, setToggleDays] = useState<number>(0);
 	const [toggleHour, setToggleHour] = useState<number>(0);
+	const forecastMemo = useMemo(() => filterForecast(forecast), [forecast]);
 
 	const handleChangeWeekdaysTabs = (id: number) => {
 		setToggleDays(id);
@@ -36,29 +38,19 @@ const Forecast = ({ forecast }: ForecastProps) => {
 		setToggleHour(0);
 	}, [forecast]);
 
-	const forecastFiltered: ArrayForecast[] = [];
-
-	if (!forecast) return <p>Loading...</p>;
-
-	forecast.map((item, itemIdx) => {
-		let itemForecast: ItemWeatherData[] = [];
-		item.map((itemWeatherData, itemWeatherId) => {
-			itemForecast.push({ itemWeatherId, itemWeatherData });
-		});
-		forecastFiltered.push({ id: itemIdx, arrForecast: itemForecast });
-	});
+	if (!forecast) return <ForecastSke />;
 
 	return (
 		<>
 			<h2 className='font-inter text-3xl font-semibold'>5-day forecast</h2>
 			<div className='py-4 md:flex md:gap-4 md:p-4'>
 				<WeekdaysTabs
-					forecastFiltered={forecastFiltered}
+					filteredForecast={forecastMemo}
 					changeDaysTabs={handleChangeWeekdaysTabs}
 					toggleDays={toggleDays}
 				/>
 				<WeekDaysContentTabs
-					forecastFiltered={forecastFiltered}
+					filteredForecast={forecastMemo}
 					changeHourTabs={handleChangeHourTabs}
 					toggleDays={toggleDays}
 					toggleHour={toggleHour}
@@ -67,5 +59,17 @@ const Forecast = ({ forecast }: ForecastProps) => {
 		</>
 	);
 };
+
+function filterForecast(forecast: ForestWeatherType) {
+	const toFilter: ArrayForecast[] = [];
+	forecast?.map((item, itemIdx) => {
+		let itemForecast: ItemWeatherData[] = [];
+		item.map((itemWeatherData, itemWeatherId) => {
+			itemForecast.push({ itemWeatherId, itemWeatherData });
+		});
+		toFilter.push({ id: itemIdx, arrForecast: itemForecast });
+	});
+	return toFilter;
+}
 
 export default Forecast;

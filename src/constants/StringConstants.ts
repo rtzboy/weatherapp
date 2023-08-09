@@ -10,7 +10,7 @@ export const weekDays: string[] = [
 	'Saturday'
 ];
 
-export const weekDaysAbbr: string[] = ['Sun.', 'Mon.', 'Tues.', 'Wed.', 'Thurs.', 'Fri.', 'Sat.'];
+export const weekDaysAbbr: string[] = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'];
 
 export const month: string[] = [
 	'Jan',

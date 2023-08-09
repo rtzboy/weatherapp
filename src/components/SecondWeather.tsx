@@ -1,4 +1,5 @@
 import { CurrentWeather } from '../interfaces/ApiCallInterface';
+import HighlightsSke from './skeletons/HighlightsSke';
 import AtmosPressure from './weatherInfo/AtmosPressure';
 import Humidity from './weatherInfo/Humidity';
 import SunriseSunset from './weatherInfo/SunriseSunset';
@@ -10,7 +11,7 @@ interface RightSideProps {
 }
 
 const SecondWeather = ({ currWeather }: RightSideProps) => {
-	if (currWeather === undefined) return <p>Loading...</p>;
+	if (currWeather === undefined) return <HighlightsSke />;
 	return (
 		<>
 			<h2 className='text-xl font-bold'>Today's Highlights</h2>

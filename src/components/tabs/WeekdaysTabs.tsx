@@ -2,16 +2,16 @@ import { weekDaysAbbr } from '../../constants/StringConstants';
 import { ArrayForecast } from '../Forecast';
 
 interface WeekdaysTabsProps {
-	forecastFiltered: ArrayForecast[];
+	filteredForecast: ArrayForecast[];
 	changeDaysTabs: (id: number) => void;
 	toggleDays: number;
 }
 
-const WeekdaysTabs = ({ toggleDays, changeDaysTabs, forecastFiltered }: WeekdaysTabsProps) => {
+const WeekdaysTabs = ({ toggleDays, changeDaysTabs, filteredForecast }: WeekdaysTabsProps) => {
 	return (
 		<nav>
 			<ul className='flex h-full justify-evenly md:flex-col md:justify-between'>
-				{forecastFiltered.map(elm => (
+				{filteredForecast.map(elm => (
 					<li
 						key={elm.id}
 						onClick={() => changeDaysTabs(elm.id)}
@@ -21,9 +21,9 @@ const WeekdaysTabs = ({ toggleDays, changeDaysTabs, forecastFiltered }: Weekdays
 					>
 						<div
 							className={`absolute -z-10 h-full transition-all duration-500 ${
-								toggleDays === elm.id ? 'w-full bg-sky-700' : 'w-0'
+								toggleDays === elm.id ? 'bg-sky-700 w-full' : 'w-0'
 							}`}
-						></div>
+						/>
 						<span className='pt-1'>
 							{forecastWeek(elm.arrForecast[0].itemWeatherData.dt_txt)[0]}
 						</span>
